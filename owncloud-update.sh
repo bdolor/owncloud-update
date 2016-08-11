@@ -10,6 +10,18 @@ OLD_APP_NAME="owncloud-8.2.5"
 DOWNLOAD_URI="https://download.owncloud.org/community/"
 WEB_ROOT="/var/www/html/"
 
+# safety first
+if [ -d ${APP_PATH}${NEW_APP_NAME} ]; then
+    echo "Yeah, um...the directory already exists.";
+    exit 1;
+fi
+
+# only root can run
+if [ `id -u` != 0 ]; then
+    echo "You must be root to run this script";
+    exit 1;
+fi
+
 cd ${APP_PATH}
 
 # get the latest version
